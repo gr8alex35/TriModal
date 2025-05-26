@@ -79,6 +79,10 @@ We evaluate our model on $D_{full}$ and $D_{reduced}$ using six metrics (Precisi
 - Our proposed architecture efficiently integrates all of the given input (S E I) and performs the best achieving an F1-Score 98.11% and 97.24% for both datasets with very low FPR and FNR.
 - Using image as input soley performs the second best.
 
+Details of the dataset is presented here.
+
+![images](/images/dataset_info.png)
+
 ## 2. Training Details
 Here, we present the training and inference details on $D_{reduced}$.
 
