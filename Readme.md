@@ -1,18 +1,16 @@
 # TriModal
 
-`We are currently still working on this repository.`
+In this project, we propose a multimodal framework, `TriModal`, that detects websites leading to illegal gambling websites using three modalities.
 
-In this project, we propose a multimodal framework, TriModal, that detects websites leading to illegal gambling websites using three modalities.
-
-- We utilize KoCLIP, a Korean specialized CLIP variant, to project text and image embedding into the same semantic space.
+- We utilize `KoCLIP`, a Korean specialized CLIP variant, to project text and image embedding into the same semantic space.
 - We design and apply Gated Attention Block to effectively integrate input modalities.
 
 ### Framework Overview
 ![images](./images/framework_overview.png)
-- This is the overview of our framework, TriModal. We effectively integrate HTML text and features from the initial web page (`start.txt`) and the landing page (`end.txt`), and finally a screenshot of the final landing page (`end_screenshot.png`).
+- This is the overview of our framework, `TriModal`. We effectively integrate HTML text and features from the initial web page (`start.txt`) and the landing page (`end.txt`), and finally a screenshot of the final landing page (`end_screenshot.png`).
 - We collect 123 keywords and 14 domains, resulting 12,054 search queries.
 - We perform data crawling using the Google Selenium Chrome Webdriver.
-- Then we embed the data using KoCLIP. We also extract features related to redirection from the resource collected from the initial web page.
+- Then we embed the data using `KoCLIP` (https://github.com/jaketae/koclip/tree/master). We also extract features related to redirection from the resource collected from the initial web page.
 - We perform `Gated Attention Fusion` using two `Gated Attention Block`.
 - Final predicion is obtained through the final MLP layers.
 
@@ -69,7 +67,7 @@ python utils/tokenize_start.py
 ```
 - The results will be saved in the `/logs` file.
 - The best models will be saved in the `/checkpoints` folder.
-5. After training only evaluation can be performed by executing the code in `test_all.sh` file.
+5. After training, only evaluation can be performed by executing the code in the `test_all.sh` file.
 ```
 ./test_all.sh
 ```
@@ -82,20 +80,25 @@ We evaluate our model on $D_{full}$ and $D_{reduced}$ using six metrics (Precisi
 - Using image as input soley performs the second best.
 
 ## 2. Training Details
-Here, we present the training and inference details on $D_{reduced}.
+Here, we present the training and inference details on $D_{reduced}$.
+
 ![images](/images/training_results.png)
-- The test set comprises 2,836 samples. Therefore, the inference time required per sample is less than one second ($\because$ 4.94s/2836 $\approx$ 1).
+- The test set comprises 2,836 samples. Therefore, the inference time required per sample is very low (4.94 seconds / 2,836 $\approx$ 0.0017 seconds).
 - Embedding time also takes less than one second for all modalities.
-    - start.txt: 0.82s
-    - end.txt: 0.80s
-    - end_screenshot.png: 0.46s
-- Therefore, assuming that data embedding is processed in parallel, after data collection from web crawlers, classification can be performed in less than two seconds, while achieving an accuracy greater than 98% with FPR $<$ 0% in detection of IOG sites.
+    - start.txt: 0.82 seconds
+    - end.txt: 0.80 seconds
+    - end_screenshot.png: 0.46 seconds
+- Therefore, assuming that data embedding is processed in parallel, after data collection from web crawlers, classification can be performed in less than one seconds, while achieving an accuracy greater than 98% with FPR $<$ 0% in detection of IOG sites.
 
-# Data Collection
-## 1. Selenium Chrome Webdriver
+<!-- # Data Collection
+## 1. Selenium Chrome Webdriver -->
 
 
-# Data Refinement
+<!-- # Data Refinement
 ## 1. Imagedup
+We use `Imagedup` (https://github.com/idealo/imagededup) to cluster similar or duplicate images. We further refine our dataset by labeling the clustered groups manually. 
+
 ## 2. Dataset Details
-![images](/images/dataset_info.png)
+The details of the curated dataset is presented. We collected 14,174 redirection samples.
+
+![images](/images/dataset_info.png) -->
